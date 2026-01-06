@@ -8,6 +8,8 @@ app.get("/", (req, res) => {
     res.send("Application is runnifg!" +port)
 })
 
+app.post("")
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
