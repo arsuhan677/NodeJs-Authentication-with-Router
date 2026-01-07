@@ -25,3 +25,35 @@ const register = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// jwt
+
+const jwtLogin = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        const user = await findUserByEmail(email)
+        console.log("login user", user)
+        if (user &&(await bcrypt.compare(password, user.password))) {
+            const token = jwt.sign({ userId: user.id},process.env.JWT_SECRET || "secret_key" ,{expiresIn: "1h"})
+            res.json({ success: true, message: "Looged in via JWT", token, user: {id: user.id, email: user.email}})
+            
+        } else {
+            res.status(401).json({ success: false, message: "Invalid credentials"})
+        }
+        
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message})
+    }
+}
+
+const logout = async (req, res) => {
+    req.session.destroy();
+    res.json({message: "Looged out"})
+}
+
+module.exports = {
+    register,
+    jwtLogin,
+    // sessionLogin
+    logout
+}
