@@ -1,4 +1,4 @@
- const bd = require("../database/database");
+const bd = require("../database/database");
 const bcrypt = require("bcryptjs");
 
 const creatUser = async (userData) => {
