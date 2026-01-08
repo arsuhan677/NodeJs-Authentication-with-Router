@@ -25,7 +25,16 @@ const getNoteHandler = async (req, res) => {
   }
 };
 
+const updateNoteHandler = async(req, res) => {
+        try {
+            
+        } catch (error) {
+            res.status(500).json({success: false, message: error.message})
+        }
+}
+
 module.exports = {
   createNoteHandler,
   getNoteHandler,
+  updateNoteHandler
 };
